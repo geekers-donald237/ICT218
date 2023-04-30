@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:share_plus/share_plus.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-
 
 class mainView extends StatefulWidget {
   const mainView({Key? key}) : super(key: key);
@@ -42,11 +41,6 @@ class _mainViewState extends State<mainView> {
     controllers.forEach((controller) => controller.dispose());
     super.dispose();
   }
-
-  Future<void> shareLink(String url) async {
-    await Share.share('${url}');
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -168,9 +162,7 @@ class _mainViewState extends State<mainView> {
                       Column(
                         children: [
                           IconButton(
-                            onPressed: () {
-                              shareLink(controller.dataSource);
-                            },
+                            onPressed: () {},
                             icon: Icon(Icons.share),
                             color: Colors.grey,
                           ),
