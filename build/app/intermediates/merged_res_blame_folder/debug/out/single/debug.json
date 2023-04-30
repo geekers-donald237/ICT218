@@ -1,9 +1,5 @@
 [
     {
-        "merged": "com.example.tiktok_clone.app-merged_res-17:/drawable_launch_background.xml.flat",
-        "source": "com.example.tiktok_clone.app-main-10:/drawable/launch_background.xml"
-    },
-    {
         "merged": "com.example.tiktok_clone.app-merged_res-17:/drawable-v21_launch_background.xml.flat",
         "source": "com.example.tiktok_clone.app-main-10:/drawable-v21/launch_background.xml"
     },
