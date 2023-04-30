@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "305118314905",
+    "project_id": "tiktok-ict",
+    "storage_bucket": "tiktok-ict.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305118314905:android:fd4cb68e5df08980525308",
+        "android_client_info": {
+          "package_name": "com.example.tiktok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305118314905:android:661fa0eb322b7ef6525308",
+        "android_client_info": {
+          "package_name": "com.example.tiktok_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305118314905:android:d755d21b954f6914525308",
+        "android_client_info": {
+          "package_name": "com.example.tiktok_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305118314905:android:855b866f24b2154c525308",
+        "android_client_info": {
+          "package_name": "com.example.tiktokappclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305118314905-mgepva00ia9jlj29kkhj6r2lj91caq07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
