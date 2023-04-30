@@ -17,7 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 
 Tats :
+
     push for google authencation : 
+    i  use the following dependencies:
+    
       google_sing_in:^^6.1.0
       firebase_core:^2.10.0
       firebase_auth:^4.4.2
