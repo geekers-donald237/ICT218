@@ -70,64 +70,112 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+         elevation: 100,
+        backgroundColor: Color.fromARGB(0, 1, 2, 3),
+        title: const Text('LOGIN',style: TextStyle(
+      color: Color.fromARGB(255, 243, 104, 104), 
+      fontWeight: FontWeight.bold,
+    ),
+    ),
+    centerTitle: true,
+     bottom: PreferredSize(
+        preferredSize: Size.fromHeight(1.0), // hauteur de la bordure basse
+        child: Container(
+        color: Colors.white,
+        height: 1.0,
+    ),
+  ),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-              icon: const Icon(Icons.person),
-              label: const Text('Se connecter avec Google'),
+         mainAxisAlignment: MainAxisAlignment.center,
+          children: [ Container(
+           decoration: BoxDecoration(
+                           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 0,
+                              blurRadius: 10,
+                              offset: Offset(0, 10),
+                            )
+                          ],
+                          border: Border(
+                            // top: BorderSide(width: 2.0, color: Colors.blue),
+                          ),
+                        ),
+            child: ElevatedButton.icon(
+              icon: Image.asset(
+                          'assets/g-logo.png',
+                          width: 60,
+                          height: 60,
+                        ),
+              style: ElevatedButton.styleFrom(
+                
+                backgroundColor: Color.fromARGB(255, 243, 104, 104),
+                
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  ),
+              ),
+              label: const Text
+              ('Se connecter avec Google',
+               style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+              ),
               onPressed: () async {
-                final UserCredential? userCredential = await _signInWithGoogle();
+               final UserCredential? userCredential = await _signInWithGoogle();
 
                 if (userCredential != null) {
                   // Connexion réussie, faire quelque chose ici...
-      //              setState(() {
-      //  String _userName = userCredential.user?.displayName ?? '';
-      // });
-      
-      // Afficher un pop-up pour indiquer que la connexion a réussi
+                  //  setState(() {
+                  //  String _userName = userCredential.user?.displayName ?? '';
+                  // });
+                  
+                  // Afficher un pop-up pour indiquer que la connexion a réussi
     
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Login success'),
-          content: Text('Vous êtes maintenant connecté en tant que $_userName'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // Fermer le pop-up et continuer
-                Navigator.of(context).pop();
-              },
-              child: const Text('Continuer'),
-            ),
-          ],
-        ),
-      );
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text('Login success'),
+                      content: Text
+                      ('Vous êtes maintenant connecté en tant que $_userName'),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed: () {
+                            // Fermer le pop-up et continuer
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Continuer'),
+                        ),
+                      ],
+                    ),      
+                  );
                   //print(userCredential.user?.uid);
                 } else {
-                    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Login Failed'),
-          content: const Text('verifier votre connexion et reesayer'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // Fermer le pop-up et continuer
-                Navigator.of(context).pop();
+                         showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: const Text('Login Failed'),
+                            content: const Text
+                            ('verifier votre connexion et reesayer'),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Fermer le pop-up et continuer
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Reesayer'),
+                              ),
+                            ],
+                          ),
+                        ); 
+                  }
               },
-              child: const Text('Reesayer'),
             ),
-          ],
-        ),
-      );
-                  
-                }
-              },
-            ),
+          ),
           ],
         ),
       ),
