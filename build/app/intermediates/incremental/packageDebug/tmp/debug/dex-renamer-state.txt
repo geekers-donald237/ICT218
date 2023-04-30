@@ -1,0 +1,4 @@
+#Sun Apr 30 07:57:19 WAT 2023
+base.0=C\:\\Users\\MCS\\Desktop\\ICT4D\\ICT L2\\S2\\ict218\\tiktok_clone\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
