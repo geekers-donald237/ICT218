@@ -1,7 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/auth/profile.auth.dart';
+import 'package:tiktok_clone/view/addvideo.screens.dart';
 import 'package:tiktok_clone/view/mainview.screens.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
