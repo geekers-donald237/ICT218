@@ -1,8 +1,12 @@
 import 'dart:async';
-
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/auth/profile.auth.dart';
+import 'package:tiktok_clone/view/addvideo.screens.dart';
+import 'package:tiktok_clone/view/loadvideo.screens.dart';
 import 'package:video_player/video_player.dart';
+
 
 class mainView extends StatefulWidget {
   const mainView({Key? key}) : super(key: key);
@@ -16,7 +20,11 @@ class _mainViewState extends State<mainView> {
   int nbLike = 120;
   bool showControls = false;
   late List<VideoPlayerController> controllers;
-  List<String> videoLinks = [    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',    'https://flutter.github.io/assets-for-api-docs/assets/videos/intro.mp4',  ];
+  List<String> videoLinks = [
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/intro.mp4',
+  ];
 
   @override
   void initState() {
@@ -32,7 +40,7 @@ class _mainViewState extends State<mainView> {
       });
       controller.setLooping(true);
       controller.initialize().then((_) => setState(() {}));
-      controller.play();
+      controller.pause();
     });
   }
 
@@ -40,6 +48,15 @@ class _mainViewState extends State<mainView> {
   void dispose() {
     controllers.forEach((controller) => controller.dispose());
     super.dispose();
+  }
+
+  Future<void> shareLink(String url) async {
+    await Share.share('${url}');
+  }
+
+
+  void sharePressed(String url){
+    Share.share(url);
   }
 
   @override
@@ -76,38 +93,29 @@ class _mainViewState extends State<mainView> {
               Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 0.5,
-                      ),
-                    ),
+                    // height: MediaQuery.of(context).size.height * 0.6,
+                    height: 200,
                     child: Center(
                       child: controller.value.isInitialized
                           ? GestureDetector(
                         onTap: () {
-                          if (controller.value.isPlaying) {
-                            controller.pause();
-                          } else {
-                            controller.play();
-                          }
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            AspectRatio(
-                              aspectRatio: controller.value.aspectRatio,
-                              child: VideoPlayer(controller),
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => VideoPage(
+                              videoUrl:controller.dataSource,
+                              name: 'John Doe', // replace with actual name
+                              likes: 42, // replace with actual number of likes
+                              dislikes: 3,
                             ),
-                            !controller.value.isPlaying
-                                ? Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 64.0,
-                            )
-                                : SizedBox.shrink(),
-                          ],
+                          ));
+                        },
+
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: SizedBox(
+                            width: controller.value.size?.width ?? 0,
+                            height: controller.value.size?.height ?? 0,
+                            child: VideoPlayer(controller),
+                          ),
                         ),
                       )
                           : CircularProgressIndicator(),
@@ -162,7 +170,9 @@ class _mainViewState extends State<mainView> {
                       Column(
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              shareLink(controller.dataSource);
+                            },
                             icon: Icon(Icons.share),
                             color: Colors.grey,
                           ),
@@ -186,17 +196,39 @@ class _mainViewState extends State<mainView> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => mainView(),
+                ));
+              },
+            ),
             label: 'Accueil',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AddVideo(),
+                ));
+              },
+            ),
             label: 'Plus',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'profil',
+            icon: IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Profile(),
+                ));
+              },
+            ),
+            label: 'Profil',
           ),
+
         ],
         currentIndex: 0,
         selectedItemColor: Colors.red,

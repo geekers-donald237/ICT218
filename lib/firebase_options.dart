@@ -50,21 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAynWZvr_SnIJusD-B3QKqeRE2v5yuSGUk',
-    appId: '1:851549237006:android:289c27d9163f91a630715f',
-    messagingSenderId: '851549237006',
-    projectId: 'tiktokclone-1fc21',
-    storageBucket: 'tiktokclone-1fc21.appspot.com',
+    apiKey: 'AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0',
+    appId: '1:305118314905:android:661fa0eb322b7ef6525308',
+    messagingSenderId: '305118314905',
+    projectId: 'tiktok-ict',
+    storageBucket: 'tiktok-ict.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAJ9AaHJylagFmmYEA5DKNXfzYZfBxphfc',
-    appId: '1:851549237006:ios:5ceb661fa6ba2e0530715f',
-    messagingSenderId: '851549237006',
-    projectId: 'tiktokclone-1fc21',
-    storageBucket: 'tiktokclone-1fc21.appspot.com',
-    androidClientId: '851549237006-jmgnsiv3dpe1s6lcsdujuun3fkommg4b.apps.googleusercontent.com',
-    iosClientId: '851549237006-8nv4tf5jm0rh1pm32ien97degsjv5opf.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC-MBHW4O8vcziCAGBsC4CjYzOa_iwsjIs',
+    appId: '1:305118314905:ios:9c06ec08217136e8525308',
+    messagingSenderId: '305118314905',
+    projectId: 'tiktok-ict',
+    storageBucket: 'tiktok-ict.appspot.com',
+    androidClientId: '305118314905-359knfbjd4g6dnmrchuvldk8d9v4erct.apps.googleusercontent.com',
+    iosClientId: '305118314905-ebadkar9ltu1bsljm9n1ncosuci9bqu4.apps.googleusercontent.com',
     iosBundleId: 'com.example.tiktokClone',
   );
 }

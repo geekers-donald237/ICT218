@@ -25,11 +25,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<UserCredential?> _signInWithGoogle() async {
     final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+    await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+      await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -38,10 +38,10 @@ class _LoginPageState extends State<LoginPage> {
 
       try {
         final UserCredential userCredential =
-            await _auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
         setState(() {
           _userName = userCredential.user?.displayName;
-          
+
           _userUid = userCredential.user?.uid;
         });
         return userCredential;
@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(10)),
+                BorderRadius.vertical(bottom: Radius.circular(10)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.5),
@@ -108,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
                 border: Border(
-                    // top: BorderSide(width: 2.0, color: Colors.blue),
-                    ),
+                  // top: BorderSide(width: 2.0, color: Colors.blue),
+                ),
               ),
               child: ElevatedButton.icon(
                 icon: Image.asset(
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () async {
                   final UserCredential? userCredential =
-                      await _signInWithGoogle();
+                  await _signInWithGoogle();
 
                   if (userCredential != null) {
                     // Connexion réussie, faire quelque chose ici...
@@ -147,8 +147,8 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (_) => AlertDialog(
                         title: const Text('Login success'),
                         content: Text(
-          'Vous êtes maintenant connecté en tant que $_userName '
-                            ),
+                            'Vous êtes maintenant connecté en tant que $_userName '
+                        ),
                         actions: <Widget>[
                           ElevatedButton(
                             onPressed: () {
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (_) => AlertDialog(
                         title: const Text('Login Failed'),
                         content:
-                            const Text('verifier votre connexion et reesayer'),
+                        const Text('verifier votre connexion et reesayer'),
                         actions: <Widget>[
                           ElevatedButton(
                             onPressed: () {
