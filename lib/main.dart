@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/auth/profile.auth.dart';
-import 'package:tiktok_clone/view/addvideo.screens.dart';
-import 'package:tiktok_clone/view/mainview.screens.dart';
+import 'package:tiktok_clone/auth/authPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'firebase_options.dart';
 
-Future<void> main () async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black38),
         useMaterial3: true,
       ),
-      home: const mainView(),
+      home: AuthPage(),
     );
   }
 }

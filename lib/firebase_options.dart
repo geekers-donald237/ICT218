@@ -50,8 +50,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBGQhCgb66UDzWQr2FE7ZNv0A22kHwAVJ0',
-    appId: '1:305118314905:android:661fa0eb322b7ef6525308',
+    apiKey: 'AIzaSyAEtSKm8tKgSLyc7Xw4hobzd02oa30jYYc',
+    appId: '1:305118314905:android:ff46c864d9892fcc525308',
     messagingSenderId: '305118314905',
     projectId: 'tiktok-ict',
     storageBucket: 'tiktok-ict.appspot.com',
@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC-MBHW4O8vcziCAGBsC4CjYzOa_iwsjIs',
-    appId: '1:305118314905:ios:9c06ec08217136e8525308',
+    appId: '1:305118314905:ios:d16c76eec1c5bb3c525308',
     messagingSenderId: '305118314905',
     projectId: 'tiktok-ict',
     storageBucket: 'tiktok-ict.appspot.com',

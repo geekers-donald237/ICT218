@@ -1,221 +1,240 @@
-// id google cloud = tiktokclone-385212.
-// firebase register id = tiktokclone-1fc21
-// Platform  Firebase App Id
-// android   1:851549237006:android:289c27d9163f91a630715f
-// ios       1:851549237006:ios:5ceb661fa6ba2e0530715f
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tiktok_clone/auth/services/authservices.dart';
+import 'package:tiktok_clone/components/my_button.dart';
+import 'package:tiktok_clone/components/my_textfield.dart';
+import 'package:tiktok_clone/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  // text editing controllers
+  final emailController = TextEditingController();
 
-  String? _userName;
-  String? _userUid;
+  final passwordController = TextEditingController();
 
-  Future<UserCredential?> _signInWithGoogle() async {
-    final GoogleSignInAccount? googleSignInAccount =
-    await googleSignIn.signIn();
-
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      try {
-        final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
-        setState(() {
-          _userName = userCredential.user?.displayName;
-
-          _userUid = userCredential.user?.uid;
-        });
-        return userCredential;
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text('ERREUR'),
-            content: const Text('recommencer'),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  // Fermer le pop-up
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Réessayer'),
-              ),
-            ],
-          ),
+  void signUserIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
         );
-        // print(e.toString());
+      },
+    );
+
+    // try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      // WRONG EMAIL
+      if (e.code == 'user-not-found') {
+        // show error to user
+        wrongEmailMessage();
+      }
+
+      // WRONG PASSWORD
+      else if (e.code == 'wrong-password') {
+        // show error to user
+        wrongPasswordMessage();
       }
     }
+  }
 
-    return null;
+  // wrong email message popup
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              'Incorrect Email',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // wrong password message popup
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              'Incorrect Password',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 100,
-        backgroundColor: Color.fromARGB(0, 1, 2, 3),
-        title: const Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Color.fromARGB(255, 243, 104, 104),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1.0), // hauteur de la bordure basse
-          child: Container(
-            color: Colors.white,
-            height: 1.0,
-          ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 10),
-                  )
-                ],
-                border: Border(
-                  // top: BorderSide(width: 2.0, color: Colors.blue),
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                // logo
+                const Icon(
+                  Icons.lock,
+                  size: 50,
                 ),
-              ),
-              child: ElevatedButton.icon(
-                icon: Image.asset(
-                  'assets/g-logo.png',
-                  width: 60,
-                  height: 60,
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 243, 104, 104),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-                label: const Text(
-                  'Se connecter avec Google',
+
+                const SizedBox(height: 50),
+
+                // welcome back, you've been missed!
+                Text(
+                  'Welcome back you\'ve been missed!',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
+                    color: Colors.grey[700],
+                    fontSize: 16,
                   ),
                 ),
-                onPressed: () async {
-                  final UserCredential? userCredential =
-                  await _signInWithGoogle();
 
-                  if (userCredential != null) {
-                    // Connexion réussie, faire quelque chose ici...
-                    //  setState(() {
-                    //  String _userName = userCredential.user?.displayName ?? '';
-                    // });
+                const SizedBox(height: 15),
 
-                    // Afficher un pop-up pour indiquer que la connexion a réussi
+                // username textfield
+                MyTextField(
+                  controller: emailController,
+                  hintText: 'Username',
+                  obscureText: false,
+                ),
 
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Login success'),
-                        content: Text(
-                            'Vous êtes maintenant connecté en tant que $_userName '
+                const SizedBox(height: 10),
+
+                // password textfield
+                MyTextField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
+
+                const SizedBox(height: 5),
+
+                // forgot password?
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                // sign in button
+                MyButton(
+                  onTap: signUserIn,
+                ),
+
+                const SizedBox(height: 50),
+
+                // or continue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
                         ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              // Fermer le pop-up et continuer
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Continuer'),
-                          ),
-                        ],
                       ),
-                    );
-                    //print(userCredential.user?.uid);
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Login Failed'),
-                        content:
-                        const Text('verifier votre connexion et reesayer'),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              // Fermer le pop-up et continuer
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Reesayer'),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Or continue with',
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
                       ),
-                    );
-                  }
-                },
-              ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 50),
+
+                // google + apple sign in buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:  [
+                    // google button
+                    SquareTile(
+                      onTap: () => AuthService().SignInWithGoogle(),
+                      imagePath: 'lib/images/google.png',
+                    ),
+
+                    SizedBox(width: 25),
+
+                    // apple button
+                    SquareTile(
+                        onTap: () => AuthService().SignInWithGoogle(),
+                        imagePath: 'lib/images/apple.png')
+                  ],
+                ),
+
+                const SizedBox(height: 50),
+
+                // not a member? register now
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       'Not a member?',
+                //       style: TextStyle(color: Colors.grey[700]),
+                //     ),
+                //     const SizedBox(width: 4),
+                //     const Text(
+                //       'Register now',
+                //       style: TextStyle(
+                //         color: Colors.blue,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ],
+                // )
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-// Future<void> _handleSignIn() async {
-
-//   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-//   try {
-//     await _googleSignIn.signIn();
-//   } catch (error) {
-//     print(error);
-//   }
-// }
-
-// Future<void> _handleSignIn() async {
-//   try {
-//     await _googleSignIn.signIn();
-//   } catch (error) {
-//     print(error);
-//   }
-// }
-
-
-// ecouter les chagement sur le login et recuper les info si disponible
-// FirebaseAuth.instance.authStateChanges().listen((User? user) {
-//   if (user == null) {
-//     print('User is currently signed out!');
-//   } else {
-//     print('User UID: ${user.uid}');
-//   }
-// });
