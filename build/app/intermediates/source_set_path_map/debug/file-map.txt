@@ -1,0 +1,21 @@
+com.example.tiktok_clone.app-jetified-firebase-common-20.3.2-0 C:\Users\MCS\.gradle\caches\transforms-3\0d80e9c6f7604b4a9011703a89be7119\transformed\jetified-firebase-common-20.3.2\res
+com.example.tiktok_clone.app-browser-1.4.0-1 C:\Users\MCS\.gradle\caches\transforms-3\15eddd45100fa512963e6542464ed3b9\transformed\browser-1.4.0\res
+com.example.tiktok_clone.app-jetified-window-java-1.0.0-beta04-2 C:\Users\MCS\.gradle\caches\transforms-3\5a5a752a30ef8f927b89ee5d02868eb5\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.tiktok_clone.app-jetified-play-services-basement-18.2.0-3 C:\Users\MCS\.gradle\caches\transforms-3\5ab269d53f6a1b8d1aed80b7ed0b33eb\transformed\jetified-play-services-basement-18.2.0\res
+com.example.tiktok_clone.app-jetified-window-1.0.0-beta04-4 C:\Users\MCS\.gradle\caches\transforms-3\86a1a9f6804c8fc691a553244f0de821\transformed\jetified-window-1.0.0-beta04\res
+com.example.tiktok_clone.app-jetified-annotation-experimental-1.1.0-5 C:\Users\MCS\.gradle\caches\transforms-3\9199ba66b232e9fc78c08871acc9a68c\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.tiktok_clone.app-jetified-play-services-auth-20.5.0-6 C:\Users\MCS\.gradle\caches\transforms-3\968aeb056daa65aed9e49807f9d00a15\transformed\jetified-play-services-auth-20.5.0\res
+com.example.tiktok_clone.app-core-1.6.0-7 C:\Users\MCS\.gradle\caches\transforms-3\9df09c476a8966dff0ab2c589910f62f\transformed\core-1.6.0\res
+com.example.tiktok_clone.app-jetified-play-services-base-18.0.1-8 C:\Users\MCS\.gradle\caches\transforms-3\c2a790f66370431fc16fd1435b68b6ea\transformed\jetified-play-services-base-18.0.1\res
+com.example.tiktok_clone.app-debug-9 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\android\app\src\debug\res
+com.example.tiktok_clone.app-main-10 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\android\app\src\main\res
+com.example.tiktok_clone.app-google-services-11 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\generated\res\google-services\debug
+com.example.tiktok_clone.app-pngs-12 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\generated\res\pngs\debug
+com.example.tiktok_clone.app-resValues-13 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\generated\res\resValues\debug
+com.example.tiktok_clone.app-rs-14 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\generated\res\rs\debug
+com.example.tiktok_clone.app-mergeDebugResources-15 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.tiktok_clone.app-mergeDebugResources-16 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.tiktok_clone.app-merged_res-17 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\app\intermediates\merged_res\debug
+com.example.tiktok_clone.app-packaged_res-18 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\firebase_auth\intermediates\packaged_res\debug
+com.example.tiktok_clone.app-packaged_res-19 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\firebase_core\intermediates\packaged_res\debug
+com.example.tiktok_clone.app-packaged_res-20 C:\Users\MCS\Desktop\ICT4D\ICT L2\S2\ict218\tiktok_clone\build\google_sign_in_android\intermediates\packaged_res\debug
