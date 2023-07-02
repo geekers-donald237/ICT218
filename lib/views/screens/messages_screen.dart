@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/utils/tik_tok_icons_icons.dart';
 
-import '../utils/tik_tok_icons_icons.dart';
+import '../../utils/tik_tok_icons_icons.dart';
 
 class MessagesScreen extends StatefulWidget {
   MessagesScreen({Key? key}) : super(key: key);
@@ -31,18 +31,23 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   children: [
                     Text(
                       "All activity",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87),
                     ),
                     Icon(Icons.arrow_drop_down),
                   ],
                 ),
-                Icon(Icons.send)
+                Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.black87,
+                )
               ],
             ),
           ),
           SizedBox(
-            height: 250,
+            height: 150,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,12 +62,18 @@ class _MessagesScreenState extends State<MessagesScreen> {
           SizedBox(height: 25),
           Text(
             "All activity",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87),
           ),
           SizedBox(height: 3),
           Text(
             "Notifications about your account will appear here",
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.normal,
+                color: Colors.black87),
           ),
         ]),
       ),

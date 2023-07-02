@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/constants.dart';
 
@@ -122,4 +124,37 @@ class ProfileController extends GetxController {
     _user.value.update('isFollowing', (value) => !value);
     update();
   }
+
+
+
+
+  void updateUsername(String newUsername, String uid) {
+    // Mettre à jour le pseudo dans le document 'user'
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'name': newUsername})
+        .then((_) {
+      Get.snackbar(
+        'Success',
+        'Pseudo mis a jour avec success',
+      );
+    }).catchError((error) {
+      Get.snackbar(
+        'Error ',
+        'Dsl une erreur c\'est produite',
+      );    });
+
+    // Mettre à jour le pseudo dans tous les documents 'video' de l'utilisateur
+    FirebaseFirestore.instance
+        .collection('videos')
+        .where('uid', isEqualTo: uid)
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.update({'username': newUsername});
+      });
+    });
+  }
+
 }

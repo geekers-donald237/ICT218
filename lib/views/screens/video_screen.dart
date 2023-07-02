@@ -6,14 +6,21 @@ import 'package:tiktok_clone/utils/tik_tok_icons_icons.dart';
 import 'package:tiktok_clone/views/screens/comment_screen.dart';
 import 'package:tiktok_clone/views/widgets/circle_animation.dart';
 import 'package:get/get.dart';
-import 'package:video_player/video_player.dart';
-
 import '../widgets/video_player_iten.dart';
 
-class VideoScreen extends StatelessWidget {
+class VideoScreen extends StatefulWidget {
   VideoScreen({Key? key}) : super(key: key);
 
+  @override
+  State<VideoScreen> createState() => _VideoScreenState();
+}
+
+
+
+class _VideoScreenState extends State<VideoScreen> {
   final VideoController videoController = Get.put(VideoController());
+
+ 
 
   buildProfile(String profilePhoto) {
     return SizedBox(
@@ -77,11 +84,10 @@ class VideoScreen extends StatelessWidget {
     );
   }
 
-  // ... (Le reste du code est inchangé)
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    
 
     return Scaffold(
       body: Obx(() {

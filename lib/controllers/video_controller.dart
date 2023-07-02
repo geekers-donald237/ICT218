@@ -31,6 +31,7 @@ class VideoController extends GetxController {
             Video.fromSnap(element),
           );
         }
+        print(retVal);
         return retVal;
       }),
     );
