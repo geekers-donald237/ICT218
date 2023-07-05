@@ -31,11 +31,12 @@ class VideoController extends GetxController {
             Video.fromSnap(element),
           );
         }
-        print(retVal);
         return retVal;
       }),
     );
   }
+
+  
 
   void initializeVideoController(String videoUrl) {
     _videoPlayerController = VideoPlayerController.network(videoUrl);
@@ -68,6 +69,13 @@ class VideoController extends GetxController {
         'likes': FieldValue.arrayUnion([uid]),
       });
     }
+  }
+
+  void increaseShareCount(String id) async {
+    var videoRef = FirebaseFirestore.instance.collection('videos').doc(id);
+    await videoRef.update({
+      'shareCount': FieldValue.increment(1),
+    });
   }
 
   @override

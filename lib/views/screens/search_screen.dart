@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/views/screens/profile_screen.dart';
 
-import '../../utils/tik_tok_icons_icons.dart';
 import '../widgets/icons_message.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -31,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
           .cast<Map<String, dynamic>>()
           .toList();
     } catch (e) {
-      print('Error loading users: $e');
+      
     }
 
     return users;

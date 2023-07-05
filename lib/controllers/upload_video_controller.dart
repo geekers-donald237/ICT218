@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/models/video.dart';
+import 'package:tiktok_clone/views/screens/home_screen.dart';
 import 'package:video_compress/video_compress.dart';
 
 class UploadVideoController extends GetxController {
@@ -45,6 +47,8 @@ class UploadVideoController extends GetxController {
       // get id
       var allDocs = await firestore.collection('videos').get();
       int len = allDocs.docs.length;
+      EasyLoading.show(status: 'Uploading...');
+
       String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
       String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
 
@@ -65,6 +69,10 @@ class UploadVideoController extends GetxController {
       await firestore.collection('videos').doc('Video $len').set(
             video.toJson(),
           );
+
+      EasyLoading.dismiss();
+      Get.offAll(HomeScreen()); // Replace all current routes with HomeScreen()
+
       Get.back();
     } catch (e) {
       Get.snackbar(

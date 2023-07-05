@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/controllers/comment_controller.dart';
@@ -37,6 +39,11 @@ class CommentScreen extends StatelessWidget {
                             backgroundColor: Colors.black,
                             backgroundImage: NetworkImage(comment.profilePhoto),
                           ),
+                          onLongPress: () {
+                            _showOptionsDialog(comment.id, comment.uid,
+                                authController.user.uid, comment.comment);
+                         
+                          },
                           title: Row(
                             children: [
                               Text(
@@ -124,8 +131,10 @@ class CommentScreen extends StatelessWidget {
                   ),
                 ),
                 trailing: TextButton(
-                  onPressed: () =>
-                      commentController.postComment(_commentController.text),
+                  onPressed: () {
+                    commentController.postComment(_commentController.text);
+                    _commentController.clear();
+                  },
                   child: const Text(
                     'Send',
                     style: TextStyle(
@@ -139,6 +148,61 @@ class CommentScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showOptionsDialog(String commentId, String commentUserID,
+      String currentUserId, String comment) {
+    bool isCurrentUserCommentAuthor = commentUserID == currentUserId;
+
+    showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Options"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.copy),
+                title: Text("Copier"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _copyCommentToClipboard(comment);
+                },
+              ),
+              if (isCurrentUserCommentAuthor)
+                ListTile(
+                  leading: Icon(Icons.delete),
+                  title: Text("Supprimer"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    commentController.deleteComment(commentId);
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _copyCommentToClipboard(String comment) {
+    Clipboard.setData(ClipboardData(text: comment)).then((value) {
+      _showToast('Commentaire copié avec succès');
+    }).catchError((error) {
+      _showToast('Échec de la copie du commentaire');
+    });
+  }
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
     );
   }
 }

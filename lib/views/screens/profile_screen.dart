@@ -1,14 +1,9 @@
-import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone/controllers/profile_controller.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
 import 'package:tiktok_clone/views/widgets/VideoList.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../constants.dart';
 import '../../utils/tik_tok_icons_icons.dart';
@@ -33,7 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    print('sddsdsdsdsds');
     super.initState();
     profileController.updateUserId(widget.uid);
   }
@@ -107,9 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     onSelected: (value) {
                       if (value == 0) {
-                        print('My Account');
                       } else if (value == 1) {
-                        print("manage your settings");
                       } else {
                         authController.signOut();
                       }

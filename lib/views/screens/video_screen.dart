@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/controllers/video_controller.dart';
 import 'package:tiktok_clone/utils/tik_tok_icons_icons.dart';
@@ -15,12 +15,8 @@ class VideoScreen extends StatefulWidget {
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
-
-
 class _VideoScreenState extends State<VideoScreen> {
   final VideoController videoController = Get.put(VideoController());
-
- 
 
   buildProfile(String profilePhoto) {
     return SizedBox(
@@ -50,6 +46,28 @@ class _VideoScreenState extends State<VideoScreen> {
         ],
       ),
     );
+  }
+
+  // void shareVideoLink(String videoUrl, String id) {
+  //   final shareUrl = 'tiktok_clone/share?video_id=$videoUrl';
+  //   Share.share(shareUrl);
+  //   // videoController.increaseShareCount(id);
+  // }
+
+  Future<void> shareVideoLink(String videoUrl, String id) async {
+    final shareUrl = 'tiktok_clone/share?video_id=$videoUrl';
+
+    try {
+      // Effectuer le partage
+      await Share.share(shareUrl);
+
+      // Augmenter le shareCount si le partage est effectué avec succès
+      videoController.increaseShareCount(id);
+
+      // Vous pouvez également afficher un message pour indiquer que le partage a été effectué avec succès
+    } catch (e) {
+      // Gérer les erreurs ici si le partage a échoué ou a été annulé par l'utilisateur
+    }
   }
 
   buildMusicAlbum(String profilePhoto) {
@@ -87,12 +105,12 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
 
     return Scaffold(
       body: Obx(() {
         return PageView.builder(
           itemCount: videoController.videoList.length,
+          reverse: true,
           controller: PageController(initialPage: 0, viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
@@ -219,7 +237,10 @@ class _VideoScreenState extends State<VideoScreen> {
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: () {},
+                                            onTap: () {
+                                              shareVideoLink(
+                                                  data.videoUrl, data.id);
+                                            },
                                             child: const Icon(
                                               TikTokIcons.reply,
                                               size: 30,

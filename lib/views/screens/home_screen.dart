@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/utils/tik_tok_icons_icons.dart';
 import 'package:tiktok_clone/views/widgets/custom_icon.dart';
@@ -12,6 +15,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIdx = 0;
+    Timer? _timer;
+
+
+
+  @override
+  void initState() {
+     EasyLoading.addStatusCallback((status) {
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,8 @@ class CommentController extends GetxController {
     getComment();
   }
 
+  
+
   getComment() async {
     _comments.bindStream(
       firestore
@@ -78,6 +80,33 @@ class CommentController extends GetxController {
     }
   }
 
+  Future<void> deleteComment(String commentId) async {
+  try {
+    // Supprimer le commentaire spécifique de la collection "comments" sous le document `_postId`
+    await firestore
+        .collection('videos')
+        .doc(_postId)
+        .collection('comments')
+        .doc(commentId)
+        .delete();
+
+    // Mettre à jour le compteur de commentaires de la vidéo
+    DocumentSnapshot doc =
+        await firestore.collection('videos').doc(_postId).get();
+    int currentCommentCount = (doc.data() as dynamic)['commentCount'];
+    if (currentCommentCount > 0) {
+      await firestore.collection('videos').doc(_postId).update({
+        'commentCount': currentCommentCount - 1,
+      });
+    }
+
+    // Afficher un message de succès
+    Get.snackbar("Success", "Commentaire supprimé avec succès");
+  } catch (e) {
+    Get.snackbar("Erreur", "Une erreur est survenue lors de la suppression du commentaire");
+  }
+}
+
   likeComment(String id) async {
     var uid = authController.user.uid;
     DocumentSnapshot doc = await firestore
@@ -106,5 +135,9 @@ class CommentController extends GetxController {
         'likes': FieldValue.arrayUnion([uid]),
       });
     }
+  }
+
+  getShare(){
+    
   }
 }
