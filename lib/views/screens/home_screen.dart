@@ -15,18 +15,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIdx = 0;
-    Timer? _timer;
-
-
+  Timer? _timer;
 
   @override
   void initState() {
-     EasyLoading.addStatusCallback((status) {
+    EasyLoading.addStatusCallback((status) {
       if (status == EasyLoadingStatus.dismiss) {
         _timer?.cancel();
       }
     });
-    // TODO: implement initState
     super.initState();
   }
 
@@ -41,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: backgroundColor,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
         currentIndex: pageIdx,
         items: const [
           BottomNavigationBarItem(

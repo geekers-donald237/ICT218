@@ -74,12 +74,10 @@ class AuthController extends GetxController {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         // Appelle showEasyLoading() en lui passant la fonction de rappel à exécuter après le chargement
-        showEasyLoading(() async {
-          await firebaseAuth.signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          );
-        });
+        await firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
       } else {
         Get.snackbar(
           'Error Logging in',
@@ -111,14 +109,14 @@ class AuthController extends GetxController {
       }
 
       // Appelle showEasyLoading() en lui passant la fonction de rappel à exécuter après le chargement
-      showEasyLoading(() {
-        // Fonction de rappel exécutée après la fermeture du chargement
-        // Affiche le snackbar d'erreur
-        Get.snackbar(print
-          'Error Logging in',
-          errorMessage,
-        );
-      });
+      // Fonction de rappel exécutée après la fermeture du chargement
+      // Affiche le snackbar d'erreur
+      Get.snackbar(
+        'Error Logging in',
+        errorMessage,
+      );
+
+      ;
     }
   }
 
@@ -140,30 +138,28 @@ class AuthController extends GetxController {
         return;
       }
 
-      showEasyLoading(() async {
-        UserCredential cred = await firebaseAuth.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+      UserCredential cred = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-        String downloadUrl = await _uploadToStorage(image);
-        model.User user = model.User(
-          name: username,
-          email: email,
-          uid: cred.user!.uid,
-          profilePhoto: downloadUrl,
-        );
+      String downloadUrl = await _uploadToStorage(image);
+      model.User user = model.User(
+        name: username,
+        email: email,
+        uid: cred.user!.uid,
+        profilePhoto: downloadUrl,
+      );
 
-        await firestore
-            .collection('users')
-            .doc(cred.user!.uid)
-            .set(user.toJson());
+      await firestore
+          .collection('users')
+          .doc(cred.user!.uid)
+          .set(user.toJson());
 
-        Get.snackbar(
-          'Account Created',
-          'Your account has been successfully created!',
-        );
-      });
+      Get.snackbar(
+        'Account Created',
+        'Your account has been successfully created!',
+      );
     } catch (e) {
       String errorMessage = '';
       if (e is FirebaseAuthException) {
@@ -186,14 +182,10 @@ class AuthController extends GetxController {
         errorMessage = e.toString();
       }
 
-      showEasyLoading(() {
-        // Fonction de rappel exécutée après la fermeture du chargement
-        // Affiche le snackbar d'erreur
-        Get.snackbar(
-          'Error Creating Account',
-          errorMessage,
-        );
-      });
+      Get.snackbar(
+        'Error Creating Account',
+        errorMessage,
+      );
     }
   }
 }

@@ -1,6 +1,9 @@
-
 import 'package:chewie/chewie.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerItem extends StatefulWidget {
@@ -18,6 +21,9 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   late VideoPlayerController videoPlayerController;
   late ChewieController _chewieController;
   bool _isVideoInitialized = false;
+  bool downloading = false;
+  var progressString = "";
+  int i = 1;
 
   @override
   void initState() {
@@ -38,26 +44,23 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     if (!_isVideoInitialized) {
       return Center(
         child: CircularProgressIndicator(
-          color: Colors.grey, // Couleur que vous souhaitez utiliser
-          // backgroundColor:
-          //     Colors.blue.shade100, // Couleur de l'arrière-plan du cercle
-          strokeWidth: 2.0, // Épaisseur du cercle de progression
+          color: Colors.grey,
+          strokeWidth: 2.0,
         ),
       );
     }
 
-    // Initialize ChewieController if the video is initialized
     _chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      autoPlay: false,
+      autoPlay: true,
       looping: true,
-      // You can customize other ChewieController configuration options here
     );
 
     return GestureDetector(
@@ -75,14 +78,15 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
             child: Chewie(controller: _chewieController),
           ),
           Positioned(
-            bottom: 0,
             left: 0,
             right: 0,
+            bottom: 0,
             child: Container(
-              height:
-                  20, // Adjust the height as needed to cover the progress bar
-              color: Colors
-                  .black, // You can use any color to match your background
+              height: 20,
+              color: Colors.black,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
             ),
           ),
         ],
@@ -106,37 +110,44 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     );
   }
 
-  // Future<void> _handleDownload() async {
-  //   try {
-  //     // Obtenir la référence du fichier à partir du lien de téléchargement Firebase
-  //     Reference ref = FirebaseStorage.instance.refFromURL(widget.videoUrl);
+  Future<void> downloadFile(String url) async {
+    Dio dio = Dio();
 
-  //     // Obtenir l'URL de téléchargement du fichier
-  //     String downloadUrl = await ref.getDownloadURL();
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      print("path ${dir.path}");
+      EasyLoading.show(status: 'Downloading...');
 
-  //     // Créer un dossier de téléchargement pour stocker le fichier
-  //     Directory directory = await getApplicationDocumentsDirectory();
-  //     String tiktokCloneDir = '${directory.path}/tiktok_clone';
-  //     await Directory(tiktokCloneDir).create(recursive: true);
-  //     String filePath = '$tiktokCloneDir/video.mp4';
+      await dio.download(url, "${dir.path}/video.mp4",
+          onReceiveProgress: (rec, total) {
+        print("Rec: $rec , Total: $total");
 
-  //     // Télécharger le fichier en utilisant flutter_downloader
-  //     await FlutterDownloader.enqueue(
-  //       url: downloadUrl,
-  //       savedDir: directory.path,
-  //       fileName: 'video.mp4'+ widget.videoUrl,
-  //       showNotification: true,
-  //       openFileFromNotification: true,
-  //     );
+        setState(() {
+          downloading = true;
+          progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
+        });
+      });
 
-  //     // Afficher un message de succès
-  //     Get.snackbar("success", 'Video telechargee');
-  //   } catch (error) {
-  //     // En cas d'erreur, afficher un message d'erreur
-  //     Get.snackbar(
-  //         "Error", 'Une erreur est survenue lors du du telechargement');
-  //   }
-  // }
+      EasyLoading.dismiss();
+      await GallerySaver.saveVideo("${dir.path}/video${i}.mp4",
+          albumName: "tiktok_cloneVideo");
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Downloaded Complete ${dir.path}')),
+      );
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error When Downloading File ${e}')),
+      );
+    }
+
+    setState(() {
+      downloading = false;
+      progressString = "Completed";
+    });
+    print("Download completed");
+  }
 
   Widget CustomAlertDialog() {
     return GestureDetector(
@@ -168,7 +179,8 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                 ),
                 onTap: () {
                   // Call the function to handle video download here
-                  // _handleDownload();
+                  downloadFile(widget.videoUrl);
+
                   Navigator.of(context).pop(); // Ferme la boîte de dialogue
                 },
               ),

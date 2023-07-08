@@ -48,12 +48,6 @@ class _VideoScreenState extends State<VideoScreen> {
     );
   }
 
-  // void shareVideoLink(String videoUrl, String id) {
-  //   final shareUrl = 'tiktok_clone/share?video_id=$videoUrl';
-  //   Share.share(shareUrl);
-  //   // videoController.increaseShareCount(id);
-  // }
-
   Future<void> shareVideoLink(String videoUrl, String id) async {
     final shareUrl = 'tiktok_clone/share?video_id=$videoUrl';
 
@@ -110,7 +104,6 @@ class _VideoScreenState extends State<VideoScreen> {
       body: Obx(() {
         return PageView.builder(
           itemCount: videoController.videoList.length,
-          reverse: true,
           controller: PageController(initialPage: 0, viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
